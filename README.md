@@ -1,4 +1,4 @@
-# Ganimals
+# Ganimons
 Training a generative model on a very small dataset using an autoencoder
 
 
