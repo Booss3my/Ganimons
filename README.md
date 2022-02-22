@@ -1,13 +1,21 @@
 # Ganimons
-Training a generative model on a very small dataset using an autoencoder
+This is a diary of sorts for a small learning project that i'm dabbling in for fun.
+The objective is to generate images using a very small dataset of pokemon sprites (<1k images) using generative adversarial networks (GANs).
+
+The main limitation since the dataset is very limited in size, is that the discriminator (which is just a classifier) quickly overfits on the training data.
 
 
-In this small project, i've given myself the challenge to train a DC-GAN using sprites from one of the best Pokemon games: Black 2 (in my opinion :) ).
+The few ideas I explored/I'm exploring are :
+- Training a DC-GAN using an encoded representation of the data (using an autoencoder), but i quickly realised that capturing the distribution of the observed data would be challenging using only a reconstruction loss. (Currently learning more about regulized autoencoders CAEs RCAEs [Alain, Guillaume & Bengio, Y.. (2012). What Regularized Auto-Encoders Learn from the Data Generating Distribution. Journal of Machine Learning Research. 15. ] ).
 
-The main limitation is the size of the available data (~<1000 4x96x96 images).
+- Using differentiable transformations to augment the data [arXiv:2006.10738v4] gave promising results, as the training is stable, but the model needs further training (currently on 600 epochs).
+ 
 
-Data augmentation is possible, but keeping in mind the result we hope to obtain at the output of the generative model, which is high quality sprites, consistant with the style and quality of the original data we eliminate some of the augmentation methods such as scaling, cropping, padding, changing brightness, contrast ... For now we'll keep Data Augmentation aside as it affects the quality of the generation.
+- Projected GANs [Sauer, Axel, et al. "Projected gans converge faster." Advances in Neural Information Processing Systems 34 (2021).]are a classic solution that I learned about recently. (I thought I had a weirdly specific idea to train a generative model on images from a game that I like a lot but apparently I was late to the party xD). The idea behind these networks is using multiple discriminators for the different levels of features, and projecting the real/generated images onto these different feature spaces before running them through the discriminators (hence the name).
 
-The second idea I had is to compress this Data to a very small scale, then use it to train an accordingly small generative model.
 
-We'll proceed by training the autoencoder first then combining the generative model and the autoencoder (the autoencoder parameters will be kept constant for the first cycles, once the generator is able to generate acceptable quality images we'll train the model as whole)
+Please excuse the lack of order in the colab file as it serves as a test sheet for now.
+
+
+
+
